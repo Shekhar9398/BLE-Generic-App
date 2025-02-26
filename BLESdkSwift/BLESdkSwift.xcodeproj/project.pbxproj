@@ -7,30 +7,40 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F4461D352D6EFBDA00287849 /* BLECharacteristicConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4461D342D6EFBDA00287849 /* BLECharacteristicConfig.swift */; };
+		F4461D372D6EFBE900287849 /* BLEServiceConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4461D362D6EFBE900287849 /* BLEServiceConfig.swift */; };
+		F4461D392D6EFC6E00287849 /* BLEManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4461D382D6EFC6E00287849 /* BLEManagerDelegate.swift */; };
+		F4461D3C2D6F008000287849 /* BatteryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4461D3B2D6F008000287849 /* BatteryViewModel.swift */; };
+		F4461D3E2D6F009C00287849 /* BatteryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4461D3D2D6F009C00287849 /* BatteryView.swift */; };
+		F4563BEB2D6F1E16005237C9 /* UUIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4563BEA2D6F1E16005237C9 /* UUIDs.swift */; };
+		F4563BF12D6F2CB7005237C9 /* libBleSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4563BEF2D6F2CB7005237C9 /* libBleSDK.a */; };
 		F4D8398D2D6E418900C39EBA /* BLESdkSwiftApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D8398C2D6E418900C39EBA /* BLESdkSwiftApp.swift */; };
 		F4D8398F2D6E418900C39EBA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D8398E2D6E418900C39EBA /* ContentView.swift */; };
 		F4D839912D6E418A00C39EBA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4D839902D6E418A00C39EBA /* Assets.xcassets */; };
 		F4D839942D6E418A00C39EBA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4D839932D6E418A00C39EBA /* Preview Assets.xcassets */; };
-		F4D8399B2D6E419600C39EBA /* DataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D8399A2D6E419600C39EBA /* DataType.swift */; };
-		F4D8399D2D6E426200C39EBA /* BleSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D8399C2D6E426200C39EBA /* BleSDK.swift */; };
-		F4D8399F2D6E42B100C39EBA /* DeviceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D8399E2D6E42B100C39EBA /* DeviceData.swift */; };
 		F4D839A12D6E459400C39EBA /* BLEManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D839A02D6E459400C39EBA /* BLEManager.swift */; };
-		F4D839A82D6E4C4400C39EBA /* CustomCBPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D839A72D6E4C4400C39EBA /* CustomCBPeripheral.swift */; };
 		F4D839AD2D6E580500C39EBA /* BLEScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D839AC2D6E580500C39EBA /* BLEScannerView.swift */; };
 		F4D839AF2D6E582B00C39EBA /* BLEScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D839AE2D6E582B00C39EBA /* BLEScannerViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F4461D342D6EFBDA00287849 /* BLECharacteristicConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLECharacteristicConfig.swift; sourceTree = "<group>"; };
+		F4461D362D6EFBE900287849 /* BLEServiceConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEServiceConfig.swift; sourceTree = "<group>"; };
+		F4461D382D6EFC6E00287849 /* BLEManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEManagerDelegate.swift; sourceTree = "<group>"; };
+		F4461D3B2D6F008000287849 /* BatteryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryViewModel.swift; sourceTree = "<group>"; };
+		F4461D3D2D6F009C00287849 /* BatteryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryView.swift; sourceTree = "<group>"; };
+		F4563BEA2D6F1E16005237C9 /* UUIDs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UUIDs.swift; sourceTree = "<group>"; };
+		F4563BEC2D6F2CB7005237C9 /* BleSDK_Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BleSDK_Header.h; sourceTree = "<group>"; };
+		F4563BED2D6F2CB7005237C9 /* BleSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BleSDK.h; sourceTree = "<group>"; };
+		F4563BEE2D6F2CB7005237C9 /* DeviceData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceData.h; sourceTree = "<group>"; };
+		F4563BEF2D6F2CB7005237C9 /* libBleSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBleSDK.a; sourceTree = "<group>"; };
+		F4563BF22D6F2D37005237C9 /* BLESdkSwift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BLESdkSwift-Bridging-Header.h"; sourceTree = "<group>"; };
 		F4D839892D6E418900C39EBA /* BLESdkSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BLESdkSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4D8398C2D6E418900C39EBA /* BLESdkSwiftApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLESdkSwiftApp.swift; sourceTree = "<group>"; };
 		F4D8398E2D6E418900C39EBA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F4D839902D6E418A00C39EBA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F4D839932D6E418A00C39EBA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		F4D8399A2D6E419600C39EBA /* DataType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataType.swift; sourceTree = "<group>"; };
-		F4D8399C2D6E426200C39EBA /* BleSDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BleSDK.swift; sourceTree = "<group>"; };
-		F4D8399E2D6E42B100C39EBA /* DeviceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceData.swift; sourceTree = "<group>"; };
 		F4D839A02D6E459400C39EBA /* BLEManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEManager.swift; sourceTree = "<group>"; };
-		F4D839A72D6E4C4400C39EBA /* CustomCBPeripheral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCBPeripheral.swift; sourceTree = "<group>"; };
 		F4D839AC2D6E580500C39EBA /* BLEScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEScannerView.swift; sourceTree = "<group>"; };
 		F4D839AE2D6E582B00C39EBA /* BLEScannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEScannerViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -40,15 +50,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4563BF12D6F2CB7005237C9 /* libBleSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F4461D3A2D6F006900287849 /* Battery Demo */ = {
+			isa = PBXGroup;
+			children = (
+				F4461D3B2D6F008000287849 /* BatteryViewModel.swift */,
+				F4461D3D2D6F009C00287849 /* BatteryView.swift */,
+			);
+			path = "Battery Demo";
+			sourceTree = "<group>";
+		};
+		F4563BF02D6F2CB7005237C9 /* BleSDK */ = {
+			isa = PBXGroup;
+			children = (
+				F4563BEC2D6F2CB7005237C9 /* BleSDK_Header.h */,
+				F4563BED2D6F2CB7005237C9 /* BleSDK.h */,
+				F4563BEE2D6F2CB7005237C9 /* DeviceData.h */,
+				F4563BEF2D6F2CB7005237C9 /* libBleSDK.a */,
+			);
+			path = BleSDK;
+			sourceTree = "<group>";
+		};
 		F4D839802D6E418900C39EBA = {
 			isa = PBXGroup;
 			children = (
+				F4563BF22D6F2D37005237C9 /* BLESdkSwift-Bridging-Header.h */,
+				F4563BF02D6F2CB7005237C9 /* BleSDK */,
 				F4D8398B2D6E418900C39EBA /* BLESdkSwift */,
 				F4D8398A2D6E418900C39EBA /* Products */,
 			);
@@ -69,6 +102,7 @@
 				F4D8398E2D6E418900C39EBA /* ContentView.swift */,
 				F4D839A62D6E493300C39EBA /* MainBLESdk */,
 				F4D839AB2D6E57F400C39EBA /* ScanDemo */,
+				F4461D3A2D6F006900287849 /* Battery Demo */,
 				F4D839902D6E418A00C39EBA /* Assets.xcassets */,
 				F4D839922D6E418A00C39EBA /* Preview Content */,
 			);
@@ -86,10 +120,10 @@
 		F4D839A62D6E493300C39EBA /* MainBLESdk */ = {
 			isa = PBXGroup;
 			children = (
-				F4D8399A2D6E419600C39EBA /* DataType.swift */,
-				F4D8399C2D6E426200C39EBA /* BleSDK.swift */,
-				F4D8399E2D6E42B100C39EBA /* DeviceData.swift */,
-				F4D839A72D6E4C4400C39EBA /* CustomCBPeripheral.swift */,
+				F4461D342D6EFBDA00287849 /* BLECharacteristicConfig.swift */,
+				F4461D362D6EFBE900287849 /* BLEServiceConfig.swift */,
+				F4563BEA2D6F1E16005237C9 /* UUIDs.swift */,
+				F4461D382D6EFC6E00287849 /* BLEManagerDelegate.swift */,
 				F4D839A02D6E459400C39EBA /* BLEManager.swift */,
 			);
 			path = MainBLESdk;
@@ -174,14 +208,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F4D8399F2D6E42B100C39EBA /* DeviceData.swift in Sources */,
 				F4D839A12D6E459400C39EBA /* BLEManager.swift in Sources */,
+				F4461D352D6EFBDA00287849 /* BLECharacteristicConfig.swift in Sources */,
+				F4563BEB2D6F1E16005237C9 /* UUIDs.swift in Sources */,
+				F4461D372D6EFBE900287849 /* BLEServiceConfig.swift in Sources */,
 				F4D839AF2D6E582B00C39EBA /* BLEScannerViewModel.swift in Sources */,
+				F4461D3E2D6F009C00287849 /* BatteryView.swift in Sources */,
 				F4D839AD2D6E580500C39EBA /* BLEScannerView.swift in Sources */,
+				F4461D392D6EFC6E00287849 /* BLEManagerDelegate.swift in Sources */,
 				F4D8398F2D6E418900C39EBA /* ContentView.swift in Sources */,
-				F4D8399D2D6E426200C39EBA /* BleSDK.swift in Sources */,
-				F4D839A82D6E4C4400C39EBA /* CustomCBPeripheral.swift in Sources */,
-				F4D8399B2D6E419600C39EBA /* DataType.swift in Sources */,
+				F4461D3C2D6F008000287849 /* BatteryViewModel.swift in Sources */,
 				F4D8398D2D6E418900C39EBA /* BLESdkSwiftApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -330,10 +366,15 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/BleSDK",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.thinkitive.BLESdkSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/thinkitive/Desktop/BLESdkSwift/BLESdkSwift-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -361,10 +402,15 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/BleSDK",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.thinkitive.BLESdkSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/thinkitive/Desktop/BLESdkSwift/BLESdkSwift-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

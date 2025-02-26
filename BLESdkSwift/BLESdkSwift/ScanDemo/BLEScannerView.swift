@@ -36,6 +36,7 @@ struct BLEScannerView: View {
                     if viewModel.connectedDevice?.identifier != device.identifier {
                         Button("Connect") {
                             viewModel.connectToDevice(device)
+                            BLEManager.shared.isConnectedToPeripheral = true
                         }
                         .padding(8)
                         .background(Color.green)
@@ -53,6 +54,7 @@ struct BLEScannerView: View {
                 
                 Button(action: {
                     viewModel.disconnectDevice()
+                    BLEManager.shared.isConnectedToPeripheral = false
                 }) {
                     Text("Disconnect")
                         .frame(maxWidth: .infinity)

@@ -1,29 +1,26 @@
 import CoreBluetooth
 
-protocol BLEManagerDelegate: AnyObject {
-    func didDiscover(peripheral: CBPeripheral, advertisementData: [String: Any], rssi: NSNumber)
-    func didConnect(peripheral: CBPeripheral)
-    func didFailToConnect(peripheral: CBPeripheral, error: Error?)
-    func didDisconnect(peripheral: CBPeripheral, error: Error?)
-    func didReceiveData(peripheral: CBPeripheral, data: Data)
-}
-
-class BLEManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
+class BLEManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, ObservableObject {
     static let shared = BLEManager()
     
-    private var centralManager: CBCentralManager!
-    private var connectedPeripheral: CBPeripheral?
-    private var sendCharacteristic: CBCharacteristic?
-    private var receiveCharacteristic: CBCharacteristic?
+    var centralManager: CBCentralManager!
+    var connectedPeripheral: CBPeripheral?
+    var serviceConfigs: [BLEServiceConfig] = []
+    var discoveredCharacteristics: [CBUUID: CBCharacteristic] = [:]
+    
     weak var delegate: BLEManagerDelegate?
     
-    private let SERVICE_UUID = CBUUID(string: "FFF0")
-    private let SEND_CHAR_UUID = CBUUID(string: "FFF6")
-    private let REC_CHAR_UUID = CBUUID(string: "FFF7")
+    @Published var isConnectedToPeripheral = false
     
     private override init() {
         super.init()
         centralManager = CBCentralManager(delegate: self, queue: nil)
+        print("BLEManager initialized.")
+    }
+    
+    func configure(with services: [BLEServiceConfig]) {
+        self.serviceConfigs = services
+        print("BLEManager configured with services: \(services.map { $0.uuid })")
     }
     
     func startScanning() {
@@ -31,48 +28,53 @@ class BLEManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             print("Bluetooth is not powered on.")
             return
         }
-        centralManager.scanForPeripherals(withServices: [SERVICE_UUID], options: [CBCentralManagerScanOptionAllowDuplicatesKey: false])
+        let serviceUUIDs = serviceConfigs.map { $0.uuid }
+        centralManager.scanForPeripherals(withServices: serviceUUIDs, options: [CBCentralManagerScanOptionAllowDuplicatesKey: false])
+        print("Started scanning for peripherals with services: \(serviceUUIDs)")
     }
     
     func stopScanning() {
         centralManager.stopScan()
+        print("Stopped scanning for peripherals.")
     }
     
     func connect(to peripheral: CBPeripheral) {
+        stopScanning() // Ensure scanning stops before connecting
         connectedPeripheral = peripheral
         connectedPeripheral?.delegate = self
         centralManager.connect(peripheral, options: nil)
+        print("Attempting to connect to peripheral: \(peripheral.name ?? "Unknown")")
     }
-
+    
     func disconnect() {
         if let peripheral = connectedPeripheral {
             centralManager.cancelPeripheralConnection(peripheral)
+            print("Disconnecting from peripheral: \(peripheral.name ?? "Unknown")")
         }
     }
     
     // MARK: - CBCentralManagerDelegate
     
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        print("Bluetooth state changed: \(central.state)")
+        print("Bluetooth state changed: \(central.state.rawValue)")
+        
+        if central.state == .poweredOn {
+            print("Bluetooth is powered on. Ready to scan when requested.")
+        } else {
+            print("Bluetooth is not available. Current state: \(central.state.rawValue)")
+        }
     }
     
-    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi: NSNumber) {
-        print("Discovered peripheral: \(peripheral.name ?? "Unknown")")
+    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi: NSNumber) {
+        print("Discovered peripheral: \(peripheral.name ?? "Unknown") with RSSI: \(rssi)")
         delegate?.didDiscover(peripheral: peripheral, advertisementData: advertisementData, rssi: rssi)
     }
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-        print("Connected to \(peripheral.name ?? "Unknown Device")")
+        print("Connected to peripheral: \(peripheral.name ?? "Unknown")")
+        peripheral.delegate = self
         peripheral.discoverServices([SERVICE_UUID])
         delegate?.didConnect(peripheral: peripheral)
-    }
-    
-    func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
-        delegate?.didFailToConnect(peripheral: peripheral, error: error)
-    }
-    
-    func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
-        delegate?.didDisconnect(peripheral: peripheral, error: error)
     }
     
     // MARK: - CBPeripheralDelegate
@@ -80,7 +82,7 @@ class BLEManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         guard let services = peripheral.services else { return }
         for service in services where service.uuid == SERVICE_UUID {
-            print("Discovered service: \(service.uuid)")
+            print("Discovered target service: \(service.uuid)")
             peripheral.discoverCharacteristics([SEND_CHAR_UUID, REC_CHAR_UUID], for: service)
         }
     }
@@ -88,34 +90,34 @@ class BLEManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         guard let characteristics = service.characteristics else { return }
         for characteristic in characteristics {
-            print("Found characteristic: \(characteristic.uuid)")
-            
-            if characteristic.uuid == SEND_CHAR_UUID {
-                sendCharacteristic = characteristic
-            } else if characteristic.uuid == REC_CHAR_UUID {
-                receiveCharacteristic = characteristic
+            discoveredCharacteristics[characteristic.uuid] = characteristic
+            if characteristic.uuid == REC_CHAR_UUID {
+                print("Enabling notifications for characteristic: \(REC_CHAR_UUID)")
                 peripheral.setNotifyValue(true, for: characteristic)
             }
         }
     }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-        if let data = characteristic.value, characteristic.uuid == REC_CHAR_UUID {
-            delegate?.didReceiveData(peripheral: peripheral, data: data)
-        }
-    }
-    
-    // MARK: - Read & Write Methods
-    
-    func writeValue(data: Data) {
-        guard let peripheral = connectedPeripheral, let characteristic = sendCharacteristic else {
-            print("Peripheral or send characteristic is nil.")
+        if let error = error {
+            print("Error receiving data: \(error.localizedDescription)")
             return
         }
-        if characteristic.properties.contains(.write) {
-            peripheral.writeValue(data, for: characteristic, type: .withResponse)
-        } else {
-            print("Send characteristic does not support writing.")
+        
+        guard let data = characteristic.value else {
+            print("Received empty data from \(characteristic.uuid)")
+            return
         }
+        
+        print("Received data from \(characteristic.uuid): \(data as NSData)")
+        delegate?.didReceiveData(peripheral: peripheral, data: data, from: characteristic)
+    }
+    
+    func writeData(to characteristicUUID: CBUUID, data: Data) {
+        guard let peripheral = connectedPeripheral, let characteristic = discoveredCharacteristics[characteristicUUID] else {
+            print("Characteristic \(characteristicUUID) not found")
+            return
+        }
+        peripheral.writeValue(data, for: characteristic, type: .withResponse)
     }
 }
